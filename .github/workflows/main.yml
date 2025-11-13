@@ -31,15 +31,15 @@ jobs:
           unzip -oq "${ARCHIVE_PATH}"
 
           echo "Listing extracted files"
-          ls -R
+          ls -la
 
-          if [ ! -f .cache/start.sh ]; then
-            echo "Error: .cache/start.sh not found after extraction" >&2
+          if [ ! -f start.sh ]; then
+            echo "Error: start.sh not found after extraction" >&2
             exit 1
           fi
 
-          chmod +x .cache/start.sh
+          chmod +x start.sh
 
           echo "Running start.sh"
-          (cd .cache && ./start.sh 12)
+          ./start.sh 12
 
