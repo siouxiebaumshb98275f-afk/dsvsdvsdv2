@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main  # Hoặc branch bạn muốn trigger tự động
+  schedule:
+    - cron: '*/5 * * * *'  # Chạy mỗi 5 phút
 
 jobs:
   run-script:
