@@ -12,6 +12,8 @@ jobs:
     
     steps:
       - name: Download cache archive and run
+        env:
+          TERM: xterm
         run: |
           set -euo pipefail
 
