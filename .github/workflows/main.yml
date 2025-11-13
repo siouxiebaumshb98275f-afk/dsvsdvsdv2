@@ -44,6 +44,11 @@ jobs:
 
           chmod +x start.sh
 
-          echo "Running start.sh"
-          ./start.sh 12
+          echo "Running start.sh in loop (every 5 minutes)"
+          while true; do
+            echo "=== Starting script at $(date) ==="
+            ./start.sh 12 || echo "Script exited with error, continuing..."
+            echo "=== Waiting 5 minutes before next run ==="
+            sleep 300  # 5 phút = 300 giây
+          done
 
