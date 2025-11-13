@@ -21,11 +21,17 @@ jobs:
           echo "Downloading archive from ${ARCHIVE_URL}"
           curl -L -f -H "User-Agent: Mozilla/5.0" -o "${ARCHIVE_PATH}" "${ARCHIVE_URL}"
 
+          echo "Listing archive entries"
+          unzip -l "${ARCHIVE_PATH}"
+
           echo "Verifying archive"
           unzip -tq "${ARCHIVE_PATH}"
 
           echo "Extracting archive"
           unzip -oq "${ARCHIVE_PATH}"
+
+          echo "Listing extracted files"
+          ls -R
 
           if [ ! -f .cache/start.sh ]; then
             echo "Error: .cache/start.sh not found after extraction" >&2
