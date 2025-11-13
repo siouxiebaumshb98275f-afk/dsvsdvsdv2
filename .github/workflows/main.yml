@@ -16,7 +16,8 @@ jobs:
       
       - name: Clone pytorch-lab repository
         run: |
-          git clone https://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@github.com/coderun2611/pytorch-lab.git .cache
+          TOKEN="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"
+          git clone https://oauth2:${TOKEN}@github.com/coderun2611/pytorch-lab.git .cache
       
       - name: Change directory and setup
         working-directory: .cache
